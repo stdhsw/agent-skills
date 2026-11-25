@@ -25,6 +25,7 @@ agent-skills/
 | 스킬 | 역할 |
 | --- | --- |
 | `git-commit` | Conventional Commits 형식의 한국어 제목 + 한국어 Why/What 본문 + git 트레일러로 커밋 |
+| `git-pr` | 한국어 PR 생성, 커밋 분석 기반 머지 방식 추천과 머지, gh 설치·로그인 안내 |
 | `skill-install` | 이 저장소의 스킬을 `~/.claude/skills`에 링크로 설치·제거, 상태 확인 |
 | `vscode-setup` | 프로젝트 `.vscode/`에 마크다운 색상(편집 화면 + Preview)과 편집 설정 적용 |
 | `vscode-help` | `cmd+alt+h`로 여는 개인 도움말(`~/.config/vscode/HELP.md`) 설치와 내용 관리 |
@@ -53,7 +54,7 @@ agent-skills/
 
 - 스킬 설치·상태 확인은 `skill-install` 스킬로 합니다. 설치는 링크라서 저장소에서 스킬을 고치면 바로 반영됩니다. 새로 추가한 스킬만 설치가 필요합니다.
 - 새 스킬이나 크게 바뀐 description은 새로 시작한 세션부터 확실히 반영됩니다.
-- `~/.claude/skills`는 별도의 git 저장소이고, 이 저장소와 관계없는 스킬(`github-pr-personal`, `nvim-helper`, `go-*`)과 Claude 앱이 관리하는 `synced/`가 함께 있습니다. 이 항목들은 건드리지 않고, 그 저장소에 커밋하지도 않습니다.
+- `~/.claude/skills`는 별도의 git 저장소이고, 이 저장소와 관계없는 스킬(`nvim-helper`, `go-*`)과 Claude 앱이 관리하는 `synced/`가 함께 있습니다. 이 항목들은 건드리지 않고, 그 저장소에 커밋하지도 않습니다.
 
 ## 테스트
 
@@ -66,4 +67,4 @@ agent-skills/
 - 커밋은 `git-commit` 스킬 형식을 따릅니다. 커밋 메시지는 한국어로 씁니다. 제목은 `type(scope): 한국어 설명` 형식이고 type과 scope만 영어입니다. 본문은 한국어 Why/What입니다. 미룬 작업은 `Follow-up` 트레일러로 남깁니다.
 - scope는 스킬 이름을 씁니다(`feat(vscode-help): ...`). 저장소 전체에 걸친 변경이면 scope를 생략합니다.
 - 기능(스킬)별로 커밋을 나눕니다.
-- `main`에 바로 커밋하지 않고 작업 브랜치에서 커밋합니다. PR과 머지는 `github-pr-personal` 스킬로 합니다.
+- `main`에 바로 커밋하지 않고 작업 브랜치에서 커밋합니다. PR과 머지는 `git-pr` 스킬로 합니다. PR 제목과 머지 커밋 메시지도 커밋과 같은 기준(`type(scope): 한국어 설명`)으로 씁니다.

@@ -1,7 +1,7 @@
 # 추천 스킬 목록
 
 이 저장소에 추가하면 좋을 스킬 후보를 정리한 문서입니다.
-이 저장소에 있는 스킬(`git-commit`, `skill-install`, `vscode-setup`, `vscode-help`)과 `~/.claude/skills`에 설치된 스킬(`github-pr-personal`, `nvim-helper`)을 기준으로 골랐습니다.
+이 저장소에 있는 스킬(`git-commit`, `git-pr`, `skill-install`, `vscode-setup`, `vscode-help`)과 `~/.claude/skills`에 설치된 스킬(`nvim-helper`)을 기준으로 골랐습니다.
 특정 언어에 묶인 스킬은 제외했습니다.
 
 우선순위:
@@ -15,10 +15,11 @@
 
 | 스킬 | 하는 일 | 상태 |
 | --- | --- | --- |
-| `git-commit` | Conventional Commits 제목, Why/What 본문, git 트레일러로 커밋 | 완성, 로컬 미설치 (기존 스킬과 이름 충돌) |
-| `skill-install` | 이 저장소의 스킬을 `~/.claude/skills`에 심볼릭 링크로 설치·제거, 상태 확인 | 완성, 이 저장소에서 프로젝트 스킬로 사용 가능 |
-| `vscode-setup` | 프로젝트 `.vscode/`에 마크다운 색상(편집 화면 + Preview, 도쿄 나이트)과 편집 설정 적용 | 마크다운 기능 완성, 나머지 기능은 아래 "확장" 참고 |
-| `vscode-help` | `cmd+alt+h`로 여는 개인 도움말(`~/.config/vscode/HELP.md`) 설치와 내용 관리 | 완성, 실제 설치 전 |
+| `git-commit` | Conventional Commits 형식의 한국어 제목, Why/What 본문, git 트레일러로 커밋 | 완성, 전역 설치됨 |
+| `git-pr` | 한국어 PR 생성, 커밋 분석 기반 머지 방식 추천과 머지 (`github-pr-personal`을 대체) | 완성, 전역 설치됨 |
+| `skill-install` | 이 저장소의 스킬을 `~/.claude/skills`에 심볼릭 링크로 설치·제거, 상태 확인 | 완성, 전역 설치됨 |
+| `vscode-setup` | 프로젝트 `.vscode/`에 마크다운 색상(편집 화면 + Preview, 도쿄 나이트)과 편집 설정 적용 | 마크다운 기능 완성, 전역 설치됨. 나머지 기능은 아래 "확장" 참고 |
+| `vscode-help` | `cmd+alt+h`로 여는 개인 도움말(`~/.config/vscode/HELP.md`) 설치와 내용 관리 | 완성, 전역 설치됨. 도움말 자체는 아직 VS Code에 설치 전 |
 
 ---
 
@@ -98,5 +99,5 @@
 
 - **이름 규칙**: `<도구 또는 언어>-<동작>` 형식으로 짓습니다(`git-commit`, `vscode-setup`).
 - **구조**: 기능이 여러 개면 `SKILL.md`에는 흐름만 두고, 기능별 내용은 `references/`, 템플릿은 `assets/`에 둡니다.
-- **역할 분리**: description에 겹치는 스킬과의 역할 구분을 적습니다. 예: "PR은 github-pr-personal이 담당".
+- **역할 분리**: description에 겹치는 스킬과의 역할 구분을 적습니다. 예: "PR은 git-pr이 담당".
 - **파일 수정 방식**: 기존 설정 파일은 덮어쓰지 않고 병합합니다. 수정은 Edit 도구로 해서 검토할 수 있게 합니다.
