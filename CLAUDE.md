@@ -27,7 +27,7 @@ agent-skills/
 | `git-commit` | Conventional Commits 형식의 한국어 제목 + 한국어 Why/What 본문 + git 트레일러로 커밋 |
 | `git-pr` | 한국어 PR 생성, 커밋 분석 기반 머지 방식 추천과 머지, gh 설치·로그인 안내 |
 | `skill-install` | 이 저장소의 스킬을 `~/.claude/skills`에 링크로 설치·제거, 상태 확인 |
-| `vscode-setup` | 프로젝트 `.vscode/`에 마크다운 색상(편집 화면 + Preview)과 편집 설정 적용 |
+| `vscode-setup` | 마크다운 색상(편집 화면 + Preview)과 편집 설정을 전역(사용자 설정 + 로컬 확장) 또는 프로젝트 `.vscode/`에 적용 |
 | `vscode-help` | `cmd+alt+h`로 여는 개인 도움말(`~/.config/vscode/HELP.md`) 설치와 내용 관리 |
 
 ## 스킬 작성 규칙
@@ -45,9 +45,10 @@ agent-skills/
 
 - `vscode-setup` 마크다운 팔레트(현재 도쿄 나이트):
   - `assets/markdown.json`: 편집 화면
-  - `assets/markdown-preview.css`: Preview
+  - `assets/markdown-preview.css`: Preview (전역 모드의 로컬 확장도 이 파일을 복사해 씀)
   - `references/markdown.md`: 색상 표
-- 이 저장소의 `.vscode/settings.json`, `.vscode/markdown-preview.css`는 `vscode-setup` 템플릿을 적용한 결과입니다. 팔레트를 바꾸면 이쪽도 맞춥니다. (`.vscode/`는 gitignore 대상이라 커밋되지 않습니다.)
+- 이 저장소의 `.vscode/settings.json`, `.vscode/markdown-preview.css`는 `vscode-setup` 프로젝트 모드를 적용한 결과입니다. 팔레트를 바꾸면 이쪽도 맞춥니다. (`.vscode/`는 gitignore 대상이라 커밋되지 않습니다.)
+- `vscode-setup` 전역 모드로 설치했다면 사용자 `settings.json`의 색상과 로컬 확장(`local.markdown-preview-colors`)은 저장소와 링크되지 않은 설치본입니다. 팔레트를 바꾸면 스킬로 다시 적용합니다.
 - 스킬을 추가하거나 상태가 바뀌면 `SKILL_IDEAS.md`의 "만든 스킬" 표와 후보 목록을 갱신합니다.
 
 ## 설치와 반영

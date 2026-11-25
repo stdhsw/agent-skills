@@ -1,0 +1,18 @@
+{
+  "name": "markdown-preview-colors",
+  "displayName": "Markdown Preview Colors (local)",
+  "description": "vscode-setup 스킬의 마크다운 Preview 색상을 모든 프로젝트에 적용하는 로컬 확장",
+  "publisher": "local",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "contributes": {
+    "markdown.previewStyles": [
+      "./preview.css"
+    ]
+  }
+}

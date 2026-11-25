@@ -4,14 +4,17 @@
 
 두 화면은 색을 지정하는 방식이 다르다.
 - **편집 화면**: 문법 강조(TextMate 스코프)로 칠한다 → `editor.tokenColorCustomizations`
-- **Preview**: 마크다운을 HTML로 렌더링해서 보여 준다 → CSS 파일을 `markdown.styles`로 연결
+- **Preview**: 마크다운을 HTML로 렌더링해서 보여 준다 → CSS 파일을 연결 (프로젝트 모드는 `markdown.styles`, 전역 모드는 로컬 확장의 `markdown.previewStyles`)
 
 그래서 한쪽만 설정하면 다른 쪽에는 색이 나오지 않는다. 항상 둘을 함께 적용한다.
 
-| 템플릿 | 설치 위치 |
-| --- | --- |
-| `assets/markdown.json` | `.vscode/settings.json`에 병합 |
-| `assets/markdown-preview.css` | `.vscode/markdown-preview.css`로 복사 |
+| 템플릿 | 프로젝트 모드 설치 위치 | 전역 모드 설치 위치 |
+| --- | --- | --- |
+| `assets/markdown.json` | `.vscode/settings.json`에 병합 | 사용자 `settings.json`에 병합 (`markdown.styles` 제외) |
+| `assets/markdown-preview.css` | `.vscode/markdown-preview.css`로 복사 | 로컬 확장의 `preview.css`로 묶어 설치 |
+| `assets/markdown-preview-extension/package.json` | 쓰지 않음 | 로컬 확장의 `package.json` |
+
+전역 모드의 자세한 절차와 Preview를 확장으로 넣는 이유는 `references/global.md`에 있다.
 
 ## 적용 내용
 
@@ -100,8 +103,10 @@ Preview CSS는 위 표에 없는 색 하나를 더 쓴다. 인용문 왼쪽 세�
 기본 팔레트를 바꾸려면 다음 세 곳을 함께 고친다. 하나라도 어긋나면 편집 화면과 Preview의 색이 달라지거나 결과 보고 내용이 실제와 달라진다.
 
 - `assets/markdown.json` (편집 화면)
-- `assets/markdown-preview.css` (Preview)
+- `assets/markdown-preview.css` (Preview, 전역 모드의 확장도 이 파일을 복사해 씀)
 - 이 문서의 색상 표
+
+이미 전역 모드로 설치했다면 사용자 `settings.json`의 색상을 고치고 확장을 다시 설치해야 새 팔레트가 반영된다(`references/global.md`의 "팔레트를 바꾼 뒤 다시 적용하기").
 
 ## 적용 확인
 
