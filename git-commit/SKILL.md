@@ -1,7 +1,7 @@
 ---
 name: git-commit
 description: >
-  Git의 staged 변경사항을 분석해 Conventional Commits 제목(영어)과 Why/What 본문(한국어),
+  Git의 staged 변경사항을 분석해 Conventional Commits 형식의 한국어 제목과 Why/What 본문(한국어),
   git 표준 트레일러(Refs, Breaking-Change, Follow-up, Co-Authored-By)로 커밋하는 스킬.
   나중에 Claude Code가 git log와 git blame만 보고도 변경 이유와 후속 작업을 파악할 수 있도록 구조화된 메시지를 작성한다.
   의도가 다른 변경이 섞여 있으면 커밋 분할을 먼저 제안한다.
@@ -23,7 +23,7 @@ staged된 변경사항만 분석해 구조화된 커밋 메시지로 커밋하�
 ## 커밋 메시지 형식
 
 ```
-type(scope): 영어 제목
+type(scope): 한국어 제목
                                    ← 빈 줄
 Why:
 - 변경 이유 (한국어)
@@ -38,7 +38,7 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 
 | 부분 | 언어 | 필수 여부 |
 | --- | --- | --- |
-| 제목 | 영어 | 항상 |
+| 제목 | type과 scope는 영어, 설명은 한국어 | 항상 |
 | `Why:` 섹션 | 한국어 | 이유가 diff만으로 드러나지 않으면 작성 |
 | `What:` 섹션 | 한국어 | 변경이 두 가지 이상이거나 제목만으로 부족하면 작성 |
 | 트레일러 | 키는 영어, 값은 한국어 가능 | 해당할 때만 작성 |
@@ -58,9 +58,12 @@ type(scope): subject
 type(scope)!: subject      ← 호환성을 깨는 변경
 ```
 
-- **영어 소문자**로 시작하고 **동사 원형**으로 시작한다.
-- type, scope를 포함해 **70자 이내**로 쓴다.
+- `type`과 `scope`는 영어 소문자로 쓴다. Conventional Commits 도구(changelog 생성, 버전 판단)가 이 부분을 읽기 때문이다.
+- `subject`(설명)는 **한국어**로 쓴다.
+- 설명은 "~ 추가", "~ 수정"처럼 **명사형으로 끝낸다**. "~했습니다", "~함"처럼 문장으로 끝내지 않는다.
+- type, scope를 포함해 **50자 이내**로 쓴다. 한글은 영문보다 넓게 보여서 영어 기준(70자)보다 짧게 잡는다.
 - 끝에 마침표를 찍지 않는다.
+- 코드 식별자, 파일명, 명령어는 원래 이름 그대로 쓴다: `feat(vscode-help): cmd+alt+h로 여는 전역 도움말 스킬 추가`
 - 호환성을 깨는 변경이면 type(scope) 뒤에 `!`를 붙이고 `Breaking-Change` 트레일러를 함께 쓴다.
 
 ### Type
@@ -91,9 +94,9 @@ type(scope)!: subject      ← 호환성을 깨는 변경
 - 프로젝트 전체에 걸친 변경이면 생략한다.
 - `git log --oneline -20`에서 이 프로젝트가 이미 쓰는 scope가 있으면 그것을 따른다. scope가 일관되면 `git log --grep "(auth)"`처럼 영역별 이력을 찾기 쉽다.
 
-### 자주 쓰는 동사
+### 자주 쓰는 끝맺음
 
-add, remove, update, fix, implement, improve, refactor, move, rename, simplify, replace, extract, migrate, configure
+추가, 삭제, 수정, 변경, 개선, 구현, 분리, 이동, 이름 변경, 단순화, 교체, 전환, 설정, 정리
 
 ---
 
@@ -180,9 +183,9 @@ staged 변경을 의도별로 묶어 본다. 의도가 둘 이상이면(예: 기
 ```
 staged 변경에 의도가 다른 작업이 섞여 있어 나눠서 커밋하는 것을 제안드립니다.
 
-1. feat(auth): add google oauth login
+1. feat(auth): 구글 OAuth 로그인 추가
    - src/auth/google.go, src/auth/handler.go
-2. docs(readme): add oauth setup guide
+2. docs(readme): OAuth 설정 가이드 추가
    - README.md
 
 나눠서 커밋할까요, 하나로 커밋할까요?
@@ -196,7 +199,7 @@ staged 변경에 의도가 다른 작업이 섞여 있어 나눠서 커밋하는
 ### 4단계: 메시지 작성
 
 1. type과 scope를 정한다.
-2. 영어 제목을 쓴다.
+2. 한국어 제목을 쓴다.
 3. 이유가 diff로 드러나지 않으면 Why를 쓴다. 이번 대화에서 사용자가 말한 배경이 있으면 반영한다.
 4. 필요하면 What을 쓴다.
 5. 해당하는 트레일러를 붙인다.
@@ -207,7 +210,7 @@ staged 변경에 의도가 다른 작업이 섞여 있어 나눠서 커밋하는
 
 ```bash
 git commit -m "$(cat <<'EOF'
-fix(api): prevent duplicate order creation on retry
+fix(api): 재시도 시 주문이 중복 생성되는 문제 수정
 
 Why:
 - 네트워크 타임아웃 후 재시도하면 같은 주문이 두 번 생성됨
@@ -236,7 +239,7 @@ EOF
 
 **기능 추가**
 ```
-feat(auth): add google oauth login
+feat(auth): 구글 OAuth 로그인 추가
 
 Why:
 - 이메일 가입 단계에서 이탈이 많아 소셜 로그인이 필요함
@@ -252,7 +255,7 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 
 **호환성을 깨는 변경**
 ```
-refactor(config)!: move port setting under server section
+refactor(config)!: port 설정을 server 섹션 아래로 이동
 
 Why:
 - 서버 관련 설정이 최상위에 흩어져 있어 설정 파일 구조를 정리함
@@ -266,7 +269,7 @@ Breaking-Change: 기존 config.yaml의 port 키를 server.port로 옮겨야 함
 
 **What만 있는 변경**
 ```
-chore: update go dependencies
+chore: Go 의존성 업데이트
 
 What:
 - golang.org/x/net v0.20.0 → v0.25.0
@@ -275,7 +278,7 @@ What:
 
 **제목만 있는 변경**
 ```
-style(api): apply gofmt
+style(api): gofmt 적용
 ```
 
 ---

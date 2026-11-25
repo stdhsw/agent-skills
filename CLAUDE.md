@@ -24,7 +24,7 @@ agent-skills/
 
 | 스킬 | 역할 |
 | --- | --- |
-| `git-commit` | Conventional Commits 제목 + 한국어 Why/What 본문 + git 트레일러로 커밋 |
+| `git-commit` | Conventional Commits 형식의 한국어 제목 + 한국어 Why/What 본문 + git 트레일러로 커밋 |
 | `skill-install` | 이 저장소의 스킬을 `~/.claude/skills`에 링크로 설치·제거, 상태 확인 |
 | `vscode-setup` | 프로젝트 `.vscode/`에 마크다운 색상(편집 화면 + Preview)과 편집 설정 적용 |
 | `vscode-help` | `cmd+alt+h`로 여는 개인 도움말(`~/.config/vscode/HELP.md`) 설치와 내용 관리 |
@@ -32,7 +32,7 @@ agent-skills/
 ## 스킬 작성 규칙
 
 - **위치와 이름**: 스킬은 저장소 루트 바로 아래 폴더로 만듭니다. 이름은 `<도구>-<동작>` 형식의 소문자 하이픈 표기입니다(`git-commit`, `vscode-setup`). 폴더 이름과 frontmatter의 `name`이 같아야 `skill-install` 검사를 통과합니다.
-- **언어**: `SKILL.md`, references, 템플릿 모두 한국어로 씁니다. 명령어, 설정 키, 커밋 제목처럼 원래 영어인 것만 영어로 둡니다.
+- **언어**: `SKILL.md`, references, 템플릿 모두 한국어로 씁니다. 명령어, 설정 키, 커밋의 type·scope처럼 원래 영어인 것만 영어로 둡니다.
 - **description**: 무엇을 하는지와 트리거 예시 문구를 함께 적습니다. 비슷한 스킬이 있으면 역할 구분을 적습니다(예: "프로젝트 설정은 vscode-setup이, 개인 도움말은 vscode-help가 담당"). 스킬이 덜 실행되는 경향이 있으므로 트리거 조건은 넉넉하게 씁니다.
 - **구조**: 기능이 여러 개인 스킬은 `SKILL.md`에 공통 흐름만 두고, 기능별 내용은 `references/`, 템플릿은 `assets/`에 둡니다.
 - **본문 문체**: 대문자 MUST 같은 강한 지시보다 "왜 그렇게 해야 하는지"를 설명합니다.
@@ -63,7 +63,7 @@ agent-skills/
 
 ## Git
 
-- 커밋은 `git-commit` 스킬 형식을 따릅니다. 제목은 영어 Conventional Commits, 본문은 한국어 Why/What입니다. 미룬 작업은 `Follow-up` 트레일러로 남깁니다.
+- 커밋은 `git-commit` 스킬 형식을 따릅니다. 커밋 메시지는 한국어로 씁니다. 제목은 `type(scope): 한국어 설명` 형식이고 type과 scope만 영어입니다. 본문은 한국어 Why/What입니다. 미룬 작업은 `Follow-up` 트레일러로 남깁니다.
 - scope는 스킬 이름을 씁니다(`feat(vscode-help): ...`). 저장소 전체에 걸친 변경이면 scope를 생략합니다.
 - 기능(스킬)별로 커밋을 나눕니다.
 - `main`에 바로 커밋하지 않고 작업 브랜치에서 커밋합니다. PR과 머지는 `github-pr-personal` 스킬로 합니다.
