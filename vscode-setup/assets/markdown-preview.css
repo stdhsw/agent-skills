@@ -1,0 +1,36 @@
+/*
+ * 마크다운 Preview 색상 (도쿄 나이트 팔레트)
+ * 편집 화면(editor.tokenColorCustomizations)과 같은 팔레트를 쓴다.
+ * VS Code는 Preview의 body에 현재 테마 종류에 따라
+ * vscode-dark / vscode-light / vscode-high-contrast 클래스를 붙인다.
+ */
+
+/* ===== 다크 테마 (Tokyo Night) ===== */
+.vscode-dark h1 { color: #F7768E; }
+.vscode-dark h2 { color: #FF9E64; }
+.vscode-dark h3 { color: #E0AF68; }
+.vscode-dark h4 { color: #9ECE6A; }
+.vscode-dark h5 { color: #7AA2F7; }
+.vscode-dark h6 { color: #BB9AF7; }
+.vscode-dark strong { color: #FF9E64; }
+.vscode-dark em { color: #BB9AF7; }
+.vscode-dark del { color: #565F89; }
+.vscode-dark :not(pre) > code { color: #73DACA; }
+.vscode-dark a { color: #7AA2F7; }
+.vscode-dark blockquote { color: #9AA5CE; font-style: italic; border-left-color: #3B4261; }
+.vscode-dark li::marker { color: #7DCFFF; font-weight: bold; }
+
+/* ===== 라이트 테마 (Tokyo Night Day) ===== */
+.vscode-light h1 { color: #F52A65; }
+.vscode-light h2 { color: #B15C00; }
+.vscode-light h3 { color: #8C6C3E; }
+.vscode-light h4 { color: #587539; }
+.vscode-light h5 { color: #2E7DE9; }
+.vscode-light h6 { color: #9854F1; }
+.vscode-light strong { color: #B15C00; }
+.vscode-light em { color: #9854F1; }
+.vscode-light del { color: #848CB5; }
+.vscode-light :not(pre) > code { color: #118C74; }
+.vscode-light a { color: #2E7DE9; }
+.vscode-light blockquote { color: #6172B0; font-style: italic; border-left-color: #C4C8DA; }
+.vscode-light li::marker { color: #007197; font-weight: bold; }
