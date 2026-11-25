@@ -18,7 +18,7 @@
 | `git-commit` | Conventional Commits 형식의 한국어 제목, Why/What 본문, git 트레일러로 커밋 | 완성, 전역 설치됨 |
 | `git-pr` | 한국어 PR 생성, 커밋 분석 기반 머지 방식 추천과 머지 (`github-pr-personal`을 대체) | 완성, 전역 설치됨 |
 | `skill-install` | 이 저장소의 스킬을 `~/.claude/skills`에 심볼릭 링크로 설치·제거, 상태 확인 | 완성, 전역 설치됨 |
-| `vscode-setup` | 프로젝트 `.vscode/`에 마크다운 색상(편집 화면 + Preview, 도쿄 나이트)과 편집 설정 적용 | 마크다운 기능 완성, 전역 설치됨. 나머지 기능은 아래 "확장" 참고 |
+| `vscode-setup` | 마크다운 색상(편집 화면 + Preview, 도쿄 나이트)과 편집 설정을 전역(사용자 설정 + 로컬 확장) 또는 프로젝트 `.vscode/`에 적용 | 마크다운 기능과 전역 모드 완성, 스킬은 전역 설치됨. 이 PC에 전역 모드 적용됨(사용자 설정 + `local.markdown-preview-colors`). 나머지 기능은 아래 "확장" 참고 |
 | `vscode-help` | `cmd+alt+h`로 여는 개인 도움말(`~/.config/vscode/HELP.md`) 설치와 내용 관리 | 완성, 전역 설치됨. 도움말 자체는 아직 VS Code에 설치 전 |
 
 ---
