@@ -8,3 +8,6 @@
 # ===== 비밀 정보 =====
 .env
 .env.*
+
+# ===== Claude Code 개인 설정 =====
+CLAUDE.local.md
