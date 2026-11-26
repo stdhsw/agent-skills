@@ -1,22 +1,6 @@
----
-name: vscode-help
-description: >
-  VS Code에서 어느 프로젝트를 열어도 단축키 하나(cmd+alt+h)로 여는 나만의 도움말(~/.config/vscode/HELP.md)을
-  설치하고 내용을 관리하는 스킬. 설치 시 도움말 파일, 사용자 tasks.json의 "Help Guide" 작업,
-  keybindings.json 단축키, settings.json의 Preview 연결(workbench.editorAssociations)을 한 번에 설정한다.
-  설치 후에는 VS Code 단축키, Claude Code 명령어 등을 도움말의 알맞은 섹션에 정해진 표기 규칙으로 추가·수정·정리한다.
-  사용자가 "vscode 도움말 만들어줘", "나만의 도움말 설치", "help guide 설정", "cmd+alt+h 도움말",
-  "도움말에 추가해줘", "이 단축키 도움말에 적어줘", "도움말 정리해줘", "HELP.md 수정",
-  "vscode 치트시트 만들어줘", "단축키 메모해 둘 곳 만들어줘" 등을 요청할 때 이 스킬을 사용하세요.
-  "도움말"이라는 단어가 없어도 VS Code에서 공통으로 볼 개인 메모나 치트시트를 만들거나 고치는 맥락이면 적극적으로 트리거하세요.
-  단, 프로젝트 단위(.vscode/) 설정은 vscode-setup 스킬이, Neovim 사용법은 nvim-helper 스킬이 담당한다.
----
+# 도움말
 
-# VS Code Help
-
-어느 프로젝트에서든 `cmd+alt+h`로 같은 도움말 파일을 Preview로 여는 환경을 만들고, 그 도움말의 내용을 관리하는 스킬이다.
-
-이 스킬은 두 가지 작업을 한다.
+어느 프로젝트에서든 `cmd+alt+h`로 같은 도움말 파일을 Preview로 여는 환경을 만들고, 그 도움말의 내용을 관리한다.
 
 | 작업 | 언제 | 절차 |
 | --- | --- | --- |
@@ -30,23 +14,10 @@ description: >
 | 항목 | 값 |
 | --- | --- |
 | 도움말 파일 | `~/.config/vscode/HELP.md` |
-| 작업 이름 | `Help Guide` |
-| 단축키 | `cmd+alt+h` |
-| 여는 방식 | `code -r`로 현재 창에서 열고, Preview로 표시 |
-
-## VS Code 사용자 설정 폴더
-
-`tasks.json`, `keybindings.json`, `settings.json`은 모두 VS Code 사용자 설정 폴더에 있다. 사용자 설정이라 모든 프로젝트에 적용된다.
-
-| OS | 경로 |
-| --- | --- |
-| macOS | `~/Library/Application Support/Code/User/` |
-| Linux | `~/.config/Code/User/` |
-| Windows | `%APPDATA%\Code\User\` |
-
-VS Code Insiders를 쓰면 폴더 이름이 `Code` 대신 `Code - Insiders`다. 두 폴더가 모두 있으면 어느 쪽에 설치할지 사용자에게 묻는다.
-
-세 파일은 JSONC(주석과 끝 쉼표 허용)다. 일반 JSON 파서로 읽고 다시 쓰면 주석이 사라지므로 스크립트로 변환하지 말고 Read로 읽은 뒤 Edit 도구로 필요한 부분만 고친다. 파일이 없으면 Write로 새로 만든다.
+| 템플릿 | `assets/help/HELP.md` |
+| 작업 이름 | `Help Guide` (사용자 `tasks.json`) |
+| 단축키 | `cmd+alt+h` (사용자 `keybindings.json`) |
+| 여는 방식 | `code -r`로 현재 창에서 열고, Preview로 표시 (사용자 `settings.json`) |
 
 ---
 
@@ -57,21 +28,20 @@ VS Code Insiders를 쓰면 폴더 이름이 `Code` 대신 `Code - Insiders`다. 
 다음을 병렬로 확인한다.
 
 ```bash
-command -v code                          # code 명령 설치 여부
+command -v code                          # code 명령 설치 여부 (SKILL.md "code 명령 확인")
 ls ~/.config/vscode/HELP.md              # 도움말 파일 존재 여부
-ls "$HOME/Library/Application Support/Code/User/"   # macOS 기준 사용자 설정 폴더
 ```
 
-`code` 명령이 없으면 작업이 동작하지 않는다. 사용자에게 VS Code 명령 팔레트(`Cmd+Shift+P`)에서 `Shell Command: Install 'code' command in PATH`를 실행해 달라고 안내한다. 시스템 PATH를 바꾸는 일이라 직접 하지 않는다. 사용자가 원하지 않으면 작업의 `command`에 `code` 대신 전체 경로(macOS: `/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code`)를 쓴다.
+`code` 명령을 설치하고 싶지 않다고 하면 작업의 `command`에 `code` 대신 전체 경로(macOS: `/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code`)를 쓴다.
+
+예전 방식으로 만든 도움말(예: `~/vscode-help/HELP.md`)이 있는지도 확인한다. 있으면 새 경로로 옮길지 묻는다. 옮기면 예전 경로를 가리키는 기존 `tasks.json` 작업과 `workbench.editorAssociations` 패턴도 새 경로로 바꾼다. 두 경로가 섞이면 단축키가 엉뚱한 파일을 연다.
 
 ### 2. 도움말 파일 만들기
 
-- `~/.config/vscode/HELP.md`가 없으면 `mkdir -p ~/.config/vscode`로 폴더를 만들고 `assets/HELP.md` 템플릿을 복사한다.
+- `~/.config/vscode/HELP.md`가 없으면 `mkdir -p ~/.config/vscode`로 폴더를 만들고 `assets/help/HELP.md` 템플릿을 복사한다.
 - 이미 있으면 **건드리지 않는다**. 사용자가 쌓아 온 내용이기 때문이다.
 
 ### 3. 사용자 tasks.json에 작업 등록
-
-사용자 설정 폴더의 `tasks.json`에 다음 작업을 넣는다.
 
 ```json
 {
@@ -115,14 +85,13 @@ ls "$HOME/Library/Application Support/Code/User/"   # macOS 기준 사용자 설
 - `workbench.editorAssociations`가 없으면 위 키를 추가한다.
 - 이미 있으면 그 객체 안에 패턴 한 줄만 추가한다. 다른 연결은 그대로 둔다.
 
-패턴은 경로 구분자를 포함하므로 파일의 전체 경로와 비교된다. 도움말 파일 하나에만 적용되도록 파일명까지 지정했다. 다른 `.md` 파일은 평소처럼 편집 화면으로 열린다.
+패턴은 경로 구분자를 포함하므로 파일의 전체 경로와 비교된다. 도움말 파일 하나에만 적용되도록 파일명까지 지정했다. 다른 `.md` 파일은 평소처럼 편집 화면으로 열린다. 마크다운 기능의 Preview 확장이 설치되어 있으면 도움말 Preview에도 같은 색이 입혀진다.
 
 ### 6. 결과 보고
 
-- 만들거나 수정한 파일 경로 4개
-- 기존 설정과 충돌해서 사용자에게 확인한 항목
+- 만들거나 수정한 파일 경로 4개 (`HELP.md`, `tasks.json`, `keybindings.json`, `settings.json`)
+- 기존 설정과 충돌해서 사용자에게 확인한 항목, 옮긴 예전 도움말
 - 사용 방법: 아무 프로젝트에서 `cmd+alt+h`를 누르면 도움말이 Preview로 열린다.
-- 바로 동작하지 않으면 `Developer: Reload Window`를 실행한다.
 
 ---
 
@@ -132,7 +101,7 @@ ls "$HOME/Library/Application Support/Code/User/"   # macOS 기준 사용자 설
 
 ### 문서 구조
 
-템플릿(`assets/HELP.md`)과 같은 구조를 유지한다.
+템플릿(`assets/help/HELP.md`)과 같은 구조를 유지한다.
 
 ```
 # ⌨️ 단축키·명령어 가이드
@@ -159,7 +128,7 @@ ls "$HOME/Library/Application Support/Code/User/"   # macOS 기준 사용자 설
 1. `~/.config/vscode/HELP.md`를 Read로 읽는다.
 2. 위 구조에 따라 들어갈 소분류를 고른다.
 3. 같은 단축키나 명령이 이미 있으면 새로 추가하지 않고 기존 행을 고친다.
-4. 단축키가 기본값인지 직접 설정한 것인지 사용자의 `keybindings.json`에서 확인한다. 직접 설정한 단축키면 ⚙️를 붙인다.
+4. 단축키가 기본값인지 직접 설정한 것인지 사용자의 `keybindings.json`에서 확인한다. 직접 설정한 단축키면 ⚙️를 붙인다. 새로 직접 설정하는 단축키라면 단축키 기능(`references/keybindings.md`의 "단축키 추가하기")으로 템플릿과 함께 추가한다.
 5. Edit 도구로 해당 표에만 행을 추가한다.
 
 ### 작성 규칙
