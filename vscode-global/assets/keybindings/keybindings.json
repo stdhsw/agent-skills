@@ -1,0 +1,30 @@
+[
+  {
+    "key": "shift+cmd+]",
+    "command": "workbench.action.nextSideBarView"
+  },
+  {
+    "key": "shift+cmd+[",
+    "command": "workbench.action.previousSideBarView"
+  },
+  {
+    "key": "cmd+k cmd+n",
+    "command": "workbench.action.moveEditorToNewWindow"
+  },
+  {
+    "key": "cmd+q cmd+q",
+    "command": "workbench.action.quit"
+  },
+  {
+    "key": "ctrl+shift+u",
+    "command": "editor.action.transformToUppercase"
+  },
+  {
+    "key": "ctrl+shift+l",
+    "command": "editor.action.transformToLowercase"
+  },
+  {
+    "key": "alt+cmd+s",
+    "command": "workbench.action.files.saveAll"
+  }
+]
