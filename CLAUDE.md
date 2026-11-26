@@ -27,7 +27,7 @@ agent-skills/
 | `git-commit` | Conventional Commits 형식의 한국어 제목 + 한국어 Why/What 본문 + git 트레일러로 커밋 |
 | `git-pr` | 한국어 PR 생성, 커밋 분석 기반 머지 방식 추천과 머지, gh 설치·로그인 안내 |
 | `skill-install` | 이 저장소의 스킬을 `~/.claude/skills`에 링크로 설치·제거, 상태 확인 |
-| `vscode-global` | VS Code 전역 설정: 마크다운 색상(편집 화면 + Preview)과 편집 설정, `cmd+alt+h` 개인 도움말(`~/.config/vscode/HELP.md`) 설치와 내용 관리, 직접 정한 단축키 설치와 추가 |
+| `vscode-global` | VS Code 전역 설정: 마크다운 색상(편집 화면 + Preview)과 편집 설정, `cmd+alt+h` 개인 도움말(`~/.config/vscode/HELP.md`) 설치와 내용 관리, 직접 정한 단축키 설치와 추가, 포매터가 설치된 언어만 저장 시 자동 정렬 |
 
 VS Code 스킬은 범위로 나눕니다. 이 PC의 모든 프로젝트에 적용하는 설정(사용자 `settings.json`·`tasks.json`·`keybindings.json`, 로컬 확장)은 `vscode-global`, 특정 프로젝트의 `.vscode/` 설정은 앞으로 만들 `vscode-project`가 맡습니다.
 
@@ -54,6 +54,9 @@ VS Code 스킬은 범위로 나눕니다. 이 PC의 모든 프로젝트에 적�
   - `assets/keybindings/keybindings.json`: 설치할 단축키
   - `references/keybindings.md`: 단축키 목록 표
   - `assets/help/HELP.md`: ⚙️ 표시된 도움말 행
+- `vscode-global` 자동 정렬 언어를 추가하거나 빼면 두 곳을 함께 고칩니다:
+  - `assets/format/settings.json`: 언어별 설정 블록
+  - `references/format.md`: 언어별 포매터 표 (확장 ID, 설치 명령)
 - 스킬을 추가하거나 상태가 바뀌면 `SKILL_IDEAS.md`의 "만든 스킬" 표와 후보 목록을 갱신합니다.
 
 ## 설치와 반영
