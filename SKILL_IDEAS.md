@@ -18,7 +18,7 @@
 | `git-commit` | Conventional Commits 형식의 한국어 제목, Why/What 본문, git 트레일러로 커밋 | 완성, 전역 설치됨 |
 | `git-pr` | 한국어 PR 생성, 커밋 분석 기반 머지 방식 추천과 머지 (`github-pr-personal`을 대체) | 완성, 전역 설치됨 |
 | `skill-install` | 이 저장소의 스킬을 `~/.claude/skills`에 심볼릭 링크로 설치·제거, 상태 확인 | 완성, 전역 설치됨 |
-| `vscode-global` | VS Code 전역 설정: 마크다운 색상(편집 화면 + Preview, 도쿄 나이트)과 편집 설정, `cmd+alt+h` 개인 도움말 설치와 내용 관리, 직접 정한 단축키 7개 설치와 추가 (`vscode-setup`과 `vscode-help`를 합침) | 완성, 전역 설치됨. 마크다운은 이 PC에 적용됨, 단축키는 이 PC의 기존 설정에서 가져옴, 도움말은 아직 새 경로로 설치 전 |
+| `vscode-global` | VS Code 전역 설정: 마크다운 색상(편집 화면 + Preview, 도쿄 나이트)과 편집 설정, `cmd+alt+h` 개인 도움말 설치와 내용 관리, 직접 정한 단축키 7개 설치와 추가, 포매터가 설치된 언어(Go·Python·SQL·Shell·JSON·YAML)만 저장 시 자동 정렬 (`vscode-setup`과 `vscode-help`를 합침) | 완성, 전역 설치됨. 이 PC의 VS Code 사용자 설정이 초기화되어 네 기능 모두 다시 적용 필요 |
 
 ---
 
@@ -28,7 +28,7 @@
 | --- | --- | --- |
 | 높음 | `work-resume` | git 이력과 `Follow-up` 트레일러로 "어디까지 했는지" 정리 |
 | 높음 | `vscode-project` | 프로젝트 `.vscode/` 설정: 창 색상, 제외 폴더, 추천 확장, 언어별 포맷터 |
-| 보통 | `vscode-global` 확장 | 전역 편집기 공통 설정(저장 시 포맷, 끝 공백, 파일 끝 줄바꿈) 추가 |
+| 보통 | `vscode-global` 확장 | 전역 편집기 공통 설정(끝 공백, 파일 끝 줄바꿈) 추가. 저장 시 정렬은 자동 정렬 기능으로 완료 |
 | 보통 | `gitignore-init` | 언어와 도구를 감지해 `.gitignore` 생성·병합 |
 | 보통 | `release-notes` | 커밋 이력으로 변경 내역과 릴리스 노트 작성 |
 | 보통 | `readme-writer` | 프로젝트를 분석해 한국어 README 작성·갱신 |
@@ -64,7 +64,8 @@
 
 ### `vscode-global` 확장
 
-- **추가할 기능**: 저장 시 포맷, 끝 공백 제거, 파일 끝 줄바꿈 같은 편집기 공통 설정을 사용자 `settings.json`에 넣습니다.
+- **추가할 기능**: 끝 공백 제거, 파일 끝 줄바꿈 같은 편집기 공통 설정을 사용자 `settings.json`에 넣습니다. 저장 시 정렬은 자동 정렬 기능(`references/format.md`)으로 만들었습니다.
+- **주의**: 마크다운은 줄 끝 공백 두 칸이 줄바꿈이므로 `[markdown]`에서는 끝 공백 제거를 끕니다.
 - **추천 이유**: 혼자 쓰는 습관이라 모든 프로젝트에 같게 적용하는 편이 맞습니다.
 
 ---
