@@ -16,7 +16,7 @@ agent-skills/
 ├── <스킬 이름>/                  # 스킬 하나 = 루트의 폴더 하나
 │   ├── SKILL.md                  # frontmatter(name, description) + 작업 흐름
 │   ├── references/<기능>.md      # 기능별 상세 설명 (필요할 때만 읽힘)
-│   └── assets/<기능>.*           # 설치·복사할 템플릿 파일
+│   └── assets/<기능>/            # 설치·복사할 템플릿 파일 (기능별 폴더)
 ├── .claude/skills/skill-install  # → ../../skill-install (이 저장소 전용 상대 링크)
 ├── SKILL_IDEAS.md                # 만든 스킬 현황과 다음 스킬 후보
 └── CLAUDE.md
@@ -27,15 +27,16 @@ agent-skills/
 | `git-commit` | Conventional Commits 형식의 한국어 제목 + 한국어 Why/What 본문 + git 트레일러로 커밋 |
 | `git-pr` | 한국어 PR 생성, 커밋 분석 기반 머지 방식 추천과 머지, gh 설치·로그인 안내 |
 | `skill-install` | 이 저장소의 스킬을 `~/.claude/skills`에 링크로 설치·제거, 상태 확인 |
-| `vscode-setup` | 마크다운 색상(편집 화면 + Preview)과 편집 설정을 전역(사용자 설정 + 로컬 확장) 또는 프로젝트 `.vscode/`에 적용 |
-| `vscode-help` | `cmd+alt+h`로 여는 개인 도움말(`~/.config/vscode/HELP.md`) 설치와 내용 관리 |
+| `vscode-global` | VS Code 전역 설정: 마크다운 색상(편집 화면 + Preview)과 편집 설정, `cmd+alt+h` 개인 도움말(`~/.config/vscode/HELP.md`) 설치와 내용 관리, 직접 정한 단축키 설치와 추가 |
+
+VS Code 스킬은 범위로 나눕니다. 이 PC의 모든 프로젝트에 적용하는 설정(사용자 `settings.json`·`tasks.json`·`keybindings.json`, 로컬 확장)은 `vscode-global`, 특정 프로젝트의 `.vscode/` 설정은 앞으로 만들 `vscode-project`가 맡습니다.
 
 ## 스킬 작성 규칙
 
-- **위치와 이름**: 스킬은 저장소 루트 바로 아래 폴더로 만듭니다. 이름은 `<도구>-<동작>` 형식의 소문자 하이픈 표기입니다(`git-commit`, `vscode-setup`). 폴더 이름과 frontmatter의 `name`이 같아야 `skill-install` 검사를 통과합니다.
+- **위치와 이름**: 스킬은 저장소 루트 바로 아래 폴더로 만듭니다. 이름은 `<도구>-<동작 또는 범위>` 형식의 소문자 하이픈 표기입니다(`git-commit`, `vscode-global`). 폴더 이름과 frontmatter의 `name`이 같아야 `skill-install` 검사를 통과합니다.
 - **언어**: `SKILL.md`, references, 템플릿 모두 한국어로 씁니다. 명령어, 설정 키, 커밋의 type·scope처럼 원래 영어인 것만 영어로 둡니다.
-- **description**: 무엇을 하는지와 트리거 예시 문구를 함께 적습니다. 비슷한 스킬이 있으면 역할 구분을 적습니다(예: "프로젝트 설정은 vscode-setup이, 개인 도움말은 vscode-help가 담당"). 스킬이 덜 실행되는 경향이 있으므로 트리거 조건은 넉넉하게 씁니다.
-- **구조**: 기능이 여러 개인 스킬은 `SKILL.md`에 공통 흐름만 두고, 기능별 내용은 `references/`, 템플릿은 `assets/`에 둡니다.
+- **description**: 무엇을 하는지와 트리거 예시 문구를 함께 적습니다. 비슷한 스킬이 있으면 역할 구분을 적습니다(예: "전역 설정은 vscode-global이, 프로젝트 .vscode/ 설정은 vscode-project가 담당"). 스킬이 덜 실행되는 경향이 있으므로 트리거 조건은 넉넉하게 씁니다.
+- **구조**: 기능이 여러 개인 스킬은 `SKILL.md`에 공통 흐름만 두고, 기능별 내용은 `references/<기능>.md`, 템플릿은 `assets/<기능>/`에 둡니다.
 - **본문 문체**: 대문자 MUST 같은 강한 지시보다 "왜 그렇게 해야 하는지"를 설명합니다.
 - **설정 파일 수정 방식**: 스킬이 사용자 설정 파일(settings.json 등 JSONC)을 고칠 때는 덮어쓰지 않고 Edit 도구로 병합하도록 지시합니다. 스크립트로 JSON을 다시 쓰면 주석이 사라지고 검토도 어렵기 때문입니다. 기존 값과 충돌하면 사용자에게 확인하도록 합니다.
 
@@ -43,12 +44,16 @@ agent-skills/
 
 같은 값이 여러 파일에 있는 경우가 있습니다. 한쪽만 고치면 스킬 결과와 설명이 어긋나므로 함께 고칩니다.
 
-- `vscode-setup` 마크다운 팔레트(현재 도쿄 나이트):
-  - `assets/markdown.json`: 편집 화면
-  - `assets/markdown-preview.css`: Preview (전역 모드의 로컬 확장도 이 파일을 복사해 씀)
+- `vscode-global` 마크다운 팔레트(현재 도쿄 나이트):
+  - `assets/markdown/colors.json`: 편집 화면
+  - `assets/markdown/preview.css`: Preview (로컬 확장이 이 파일을 복사해 씀)
   - `references/markdown.md`: 색상 표
-- 이 저장소의 `.vscode/settings.json`, `.vscode/markdown-preview.css`는 `vscode-setup` 프로젝트 모드를 적용한 결과입니다. 팔레트를 바꾸면 이쪽도 맞춥니다. (`.vscode/`는 gitignore 대상이라 커밋되지 않습니다.)
-- `vscode-setup` 전역 모드로 설치했다면 사용자 `settings.json`의 색상과 로컬 확장(`local.markdown-preview-colors`)은 저장소와 링크되지 않은 설치본입니다. 팔레트를 바꾸면 스킬로 다시 적용합니다.
+- 사용자 `settings.json`의 색상과 로컬 확장(`local.markdown-preview-colors`)은 저장소와 링크되지 않은 설치본입니다. 팔레트를 바꾸면 `vscode-global`로 다시 적용합니다.
+- 이 저장소의 `.vscode/settings.json`, `.vscode/markdown-preview.css`는 예전 프로젝트 모드로 넣은 설정을 보존해 둔 것입니다. 이 저장소에서는 전역 설정보다 우선하므로, 팔레트를 바꾸면 이쪽도 맞추거나 지웁니다. (`.vscode/`는 gitignore 대상이라 커밋되지 않습니다.)
+- `vscode-global` 단축키를 추가하거나 빼면 세 곳을 함께 고칩니다:
+  - `assets/keybindings/keybindings.json`: 설치할 단축키
+  - `references/keybindings.md`: 단축키 목록 표
+  - `assets/help/HELP.md`: ⚙️ 표시된 도움말 행
 - 스킬을 추가하거나 상태가 바뀌면 `SKILL_IDEAS.md`의 "만든 스킬" 표와 후보 목록을 갱신합니다.
 
 ## 설치와 반영
@@ -66,6 +71,29 @@ agent-skills/
 ## Git
 
 - 커밋은 `git-commit` 스킬 형식을 따릅니다. 커밋 메시지는 한국어로 씁니다. 제목은 `type(scope): 한국어 설명` 형식이고 type과 scope만 영어입니다. 본문은 한국어 Why/What입니다. 미룬 작업은 `Follow-up` 트레일러로 남깁니다.
-- scope는 스킬 이름을 씁니다(`feat(vscode-help): ...`). 저장소 전체에 걸친 변경이면 scope를 생략합니다.
+- scope는 스킬 이름을 씁니다(`feat(vscode-global): ...`). 저장소 전체에 걸친 변경이면 scope를 생략합니다.
 - 기능(스킬)별로 커밋을 나눕니다.
 - `main`에 바로 커밋하지 않고 작업 브랜치에서 커밋합니다. PR과 머지는 `git-pr` 스킬로 합니다. PR 제목과 머지 커밋 메시지도 커밋과 같은 기준(`type(scope): 한국어 설명`)으로 씁니다.
+
+### 실행한 git·gh 명령 보여 주기
+
+사용자가 git과 GitHub CLI(`gh`) 명령을 배우는 중입니다. git이나 `gh` 명령을 실행했으면, 응답에 **실제로 실행한 명령**과 **한 줄 설명**을 함께 보여 줍니다.
+
+- 실행한 순서대로, 실제로 쓴 옵션까지 그대로 적습니다. 긴 커밋 메시지나 PR 본문은 `<메시지>`처럼 줄여도 됩니다.
+- 설명은 "무엇을 하는 명령인지"와 "왜 이 옵션을 썼는지"를 짧게 씁니다. 처음 나오는 옵션은 뜻을 풀어 줍니다.
+- 상태 확인용 명령(`git status`, `git log` 등)도 포함합니다. 무엇을 확인하려고 실행했는지가 배울 거리이기 때문입니다.
+- 여러 명령을 한 번에 실행했으면 명령마다 나눠서 적습니다.
+- 응답 끝에 "실행한 명령" 표로 모읍니다.
+
+```markdown
+## 실행한 명령
+
+| 명령 | 설명 |
+| --- | --- |
+| `git status --short` | 바뀐 파일을 한 줄씩 짧게 표시. `M`은 수정, `??`는 git이 아직 추적하지 않는 새 파일 |
+| `git switch -c feat/login` | `feat/login` 브랜치를 새로 만들고(`-c`) 그 브랜치로 이동 |
+| `git add src/login.ts` | 이 파일만 다음 커밋에 포함(staging). `git add .`은 의도하지 않은 파일까지 섞일 수 있어 피함 |
+| `git commit -m "<메시지>"` | staged된 변경을 메시지와 함께 커밋 |
+| `git push -u origin feat/login` | 브랜치를 GitHub(`origin`)에 올리고, `-u`로 이후 `git push`만 쳐도 되게 연결 |
+| `gh pr create --base main --title "<제목>"` | GitHub CLI로 `main`에 합칠 PR 생성 |
+```
